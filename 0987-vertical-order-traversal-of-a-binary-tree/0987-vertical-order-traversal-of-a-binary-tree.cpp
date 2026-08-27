@@ -12,11 +12,11 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        map<int, map<int, multiset<int>>> nodes;    // used to store level -> vertical -> set of nodes. map sets it to sorted.
+        map<int, map<int, multiset<int>>> nodes;    // used to store level -> vertical -> set of nodes. map keeps it sorted acc to x then y.
         queue<pair<TreeNode*, pair<int,int>>> todo;   //used for bfs traversal: to store node, level(x-coord) and vertical(y-coord) together.
         todo.push({root, {0,0}});
 
-        //run bfs to calculate {node, {level, vertical}}. 
+        //run bfs for each node using ds: {node, {level, vertical}}. 
         while(!todo.empty()){
             auto curr = todo.front();
             todo.pop();
@@ -34,7 +34,7 @@ public:
 
         vector<vector<int>> ans;
 
-        for(auto p : nodes){    //
+        for(auto p : nodes){    //store each column's values in a 1D vector then transfer all to 2D vector.
             vector<int> col;
             for(auto q : p.second){
                 col.insert(col.end(), q.second.begin(), q.second.end());
